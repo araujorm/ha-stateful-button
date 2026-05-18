@@ -1,0 +1,13 @@
+{
+  "domain": "stateful_button",
+  "name": "Stateful Button",
+  "version": "0.1.0",
+  "documentation": "https://github.com/roaraujo/ha-stateful-button",
+  "issue_tracker": "https://github.com/roaraujo/ha-stateful-button/issues",
+  "codeowners": ["@roaraujo"],
+  "config_flow": true,
+  "dependencies": [],
+  "requirements": [],
+  "integration_type": "helper",
+  "iot_class": "local_polling"
+}

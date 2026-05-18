@@ -1,0 +1,37 @@
+{
+  "title": "Stateful Button",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Criar botão com estado",
+        "description": "Entidade de botão cujo ícone e estado refletem outra entidade. Premir faz toggle a um switch alvo.",
+        "data": {
+          "name": "Nome",
+          "pulse_switch": "Switch a alternar (no toque)",
+          "state_source": "Entidade-fonte do estado (opcional, controla ícone e estado)",
+          "area_id": "Área",
+          "icon_on": "Ícone quando a fonte está 'on'",
+          "icon_off": "Ícone quando a fonte está 'off'",
+          "icon_default": "Ícone quando a fonte é desconhecida"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opções do botão com estado",
+        "data": {
+          "name": "Nome",
+          "pulse_switch": "Switch a alternar (no toque)",
+          "state_source": "Entidade-fonte do estado (opcional, controla ícone e estado)",
+          "area_id": "Área",
+          "icon_on": "Ícone quando a fonte está 'on'",
+          "icon_off": "Ícone quando a fonte está 'off'",
+          "icon_default": "Ícone quando a fonte é desconhecida"
+        }
+      }
+    }
+  },
+  "entity": {}
+}

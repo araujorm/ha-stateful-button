@@ -1,0 +1,37 @@
+{
+  "title": "Stateful Button",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Create stateful button",
+        "description": "A cover-shaped entity whose state mirrors another entity. Acting on it pulses a target switch.",
+        "data": {
+          "name": "Name",
+          "pulse_switch": "Pulse switch (toggled on each action)",
+          "state_source": "State source entity (optional, drives state and icon)",
+          "area_id": "Area",
+          "icon_on": "Icon when source is 'on'",
+          "icon_off": "Icon when source is 'off'",
+          "icon_default": "Icon when source is unknown"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Stateful button options",
+        "data": {
+          "name": "Name",
+          "pulse_switch": "Pulse switch (toggled on each action)",
+          "state_source": "State source entity (optional, drives state and icon)",
+          "area_id": "Area",
+          "icon_on": "Icon when source is 'on'",
+          "icon_off": "Icon when source is 'off'",
+          "icon_default": "Icon when source is unknown"
+        }
+      }
+    }
+  },
+  "entity": {}
+}
