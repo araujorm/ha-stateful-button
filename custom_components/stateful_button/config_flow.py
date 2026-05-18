@@ -29,6 +29,12 @@ from .const import (
 )
 
 
+def _suggested(value: Any) -> dict[str, Any]:
+    """description for an Optional field: pre-fills the form with `value` but
+    does NOT re-inject it when the user clears the field on submit."""
+    return {"suggested_value": value} if value not in (None, "", vol.UNDEFINED) else {}
+
+
 def _form_schema(defaults: dict[str, Any]) -> vol.Schema:
     return vol.Schema(
         {
@@ -37,20 +43,26 @@ def _form_schema(defaults: dict[str, Any]) -> vol.Schema:
                 CONF_PULSE_SWITCH, default=defaults.get(CONF_PULSE_SWITCH, vol.UNDEFINED)
             ): EntitySelector(EntitySelectorConfig(domain="switch")),
             vol.Optional(
-                CONF_STATE_SOURCE, default=defaults.get(CONF_STATE_SOURCE, vol.UNDEFINED)
+                CONF_STATE_SOURCE,
+                description=_suggested(defaults.get(CONF_STATE_SOURCE)),
             ): EntitySelector(EntitySelectorConfig()),
             vol.Optional(
-                CONF_AREA_ID, default=defaults.get(CONF_AREA_ID, vol.UNDEFINED)
+                CONF_AREA_ID,
+                description=_suggested(defaults.get(CONF_AREA_ID)),
             ): AreaSelector(),
             vol.Optional(
-                CONF_ICON_ON, default=defaults.get(CONF_ICON_ON, DEFAULT_ICON_ON)
+                CONF_ICON_ON,
+                description=_suggested(defaults.get(CONF_ICON_ON, DEFAULT_ICON_ON)),
             ): IconSelector(),
             vol.Optional(
-                CONF_ICON_OFF, default=defaults.get(CONF_ICON_OFF, DEFAULT_ICON_OFF)
+                CONF_ICON_OFF,
+                description=_suggested(defaults.get(CONF_ICON_OFF, DEFAULT_ICON_OFF)),
             ): IconSelector(),
             vol.Optional(
                 CONF_ICON_DEFAULT,
-                default=defaults.get(CONF_ICON_DEFAULT, DEFAULT_ICON_DEFAULT),
+                description=_suggested(
+                    defaults.get(CONF_ICON_DEFAULT, DEFAULT_ICON_DEFAULT)
+                ),
             ): IconSelector(),
         }
     )
