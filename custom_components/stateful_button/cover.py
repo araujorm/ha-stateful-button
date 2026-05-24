@@ -38,7 +38,11 @@ class StatefulCover(CoverEntity):
     # GATE so the feature button uses mdi:arrow-expand-horizontal instead of
     # the up-arrow. Still inside the Security summary (door/garage/gate/window).
     _attr_device_class = CoverDeviceClass.GATE
-    _attr_supported_features = CoverEntityFeature.OPEN
+    # supported_features is dynamic (see property below) so the Lovelace tile
+    # shows exactly one button reflecting the next action:
+    #   closed  -> OPEN
+    #   open    -> CLOSE
+    #   unknown -> OPEN (with neutral icon)
 
     def __init__(self, entry: ConfigEntry) -> None:
         self._entry = entry
@@ -77,9 +81,17 @@ class StatefulCover(CoverEntity):
         return "closed" if self.is_closed else "open"
 
     @property
+    def supported_features(self) -> CoverEntityFeature:
+        s = self._source_state()
+        if s == STATE_ON:   # open  -> only allow CLOSE
+            return CoverEntityFeature.CLOSE
+        if s == STATE_OFF:  # closed -> only allow OPEN
+            return CoverEntityFeature.OPEN
+        # No source defined / source unavailable: single neutral OPEN button.
+        return CoverEntityFeature.OPEN
+
+    @property
     def icon(self) -> str:
-        if not self._state_source:
-            return self._icon_off
         s = self._source_state()
         if s is None:
             return self._icon_default
@@ -116,6 +128,9 @@ class StatefulCover(CoverEntity):
         self.async_write_ha_state()
 
     async def async_open_cover(self, **kwargs) -> None:
+        await self._pulse()
+
+    async def async_close_cover(self, **kwargs) -> None:
         await self._pulse()
 
     async def _pulse(self) -> None:
